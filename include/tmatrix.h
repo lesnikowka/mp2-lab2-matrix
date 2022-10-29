@@ -197,14 +197,29 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T>>
     using TDynamicVector<TDynamicVector<T>>::pMem;
     using TDynamicVector<TDynamicVector<T>>::sz;
 public:
+
     TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T>>(s)
     {
         if (s > MAX_MATRIX_SIZE) throw std::out_of_range("Index should be less than max_matrix_size");
         for (size_t i = 0; i < sz; i++)
             pMem[i] = TDynamicVector<T>(sz);
     }
+
     
     using TDynamicVector<TDynamicVector<T>>::operator[];
+    using TDynamicVector<TDynamicVector<T>>::size;
+
+    TDynamicMatrix& operator=(const TDynamicMatrix& m) {
+        if (&m != this) {
+            if (sz != m.sz) {
+                sz = m.sz;
+                delete[] pMem;
+                pMem = new TDynamicVector<T>[sz];
+            }
+            std::copy(m.pMem, m.pMem + sz, pMem);
+        }
+        return *this;
+    }
 
     const T& at(int row, int col) const {
         if (row >= sz || col >= sz) throw std::out_of_range("Index out of range");
@@ -215,8 +230,6 @@ public:
         if (row >= sz || col >= sz) throw std::out_of_range("Index out of range");
         return pMem[row][col];
     }
-
-    size_t size() const noexcept { return sz; }
     
     // сравнение
     bool operator==(const TDynamicMatrix& m) const noexcept
