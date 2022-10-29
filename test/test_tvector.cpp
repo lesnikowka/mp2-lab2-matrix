@@ -81,9 +81,12 @@ TEST(TDynamicVector, can_assign_vector_to_itself)
 TEST(TDynamicVector, can_assign_vectors_of_equal_size)
 {
 	TDynamicVector<int> v1(5);
+	v1[0] = 1;
 	TDynamicVector<int> v2(5);
 
-	ASSERT_NO_THROW(v1 = v2);
+	v2 = v1;
+
+	ASSERT_EQ(v2, v1);
 }
 
 TEST(TDynamicVector, assign_operator_change_vector_size)
@@ -99,9 +102,12 @@ TEST(TDynamicVector, assign_operator_change_vector_size)
 TEST(TDynamicVector, can_assign_vectors_of_different_size)
 {
 	TDynamicVector<int> v1(5);
-	TDynamicVector<int> v2(10);
+	v1[0] = 1;
+	TDynamicVector<int> v2(6);
 
-	ASSERT_NO_THROW(v1 = v2);
+	v2 = v1;
+
+	ASSERT_EQ(v2, v1);
 }
 
 TEST(TDynamicVector, compare_equal_vectors_return_true)
