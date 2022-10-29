@@ -106,7 +106,9 @@ public:
     // сравнение
     bool operator==(const TDynamicVector& v) const noexcept
     {
+        if (this == &v) return true;
         if (sz != v.sz) return false;
+       
         for (size_t i = 0; i < sz; i++)
             if (pMem[i] != v.pMem[i]) return false;
         return true;
@@ -142,7 +144,7 @@ public:
     // векторные операции
     TDynamicVector operator+(const TDynamicVector& v)
     {
-        if (sz != v.sz) throw std::lenght_error("Sizes are not equate");
+        if (sz != v.sz) throw std::length_error("Sizes are not equate");
         TDynamicVector<T> result(*this);
         for (size_t i = 0; i < sz; i++)
             result.pMem[i] += v.pMem[i];
@@ -150,7 +152,7 @@ public:
     }
     TDynamicVector operator-(const TDynamicVector& v)
     {
-        if (sz != v.sz) throw std::lenght_error("Sizes are not equate");
+        if (sz != v.sz) throw std::length_error("Sizes are not equate");
         TDynamicVector<T> result(*this);
         for (size_t i = 0; i < sz; i++)
             result.pMem[i] -= v.pMem[i];
@@ -158,7 +160,7 @@ public:
     }
     T operator*(const TDynamicVector& v) noexcept(noexcept(T()))
     {
-        if (sz != v.sz) throw std::lenght_error("Sizes are not equate");
+        if (sz != v.sz) throw std::length_error("Sizes are not equate");
         T result = T();
         for (size_t i = 0; i < sz; i++)
             result += pMem[i] * v.pMem[i];
