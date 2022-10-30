@@ -158,7 +158,7 @@ public:
             result.pMem[i] -= v.pMem[i];
         return result;
     }
-    T operator*(const TDynamicVector& v) noexcept(noexcept(T()))
+    T operator*(const TDynamicVector& v) //noexcept(noexcept(T()))
     {
         if (sz != v.sz) throw std::length_error("Sizes are not equate");
         T result = T();
@@ -207,6 +207,7 @@ public:
 
     
     using TDynamicVector<TDynamicVector<T>>::operator[];
+    using TDynamicVector<TDynamicVector<T>>::at;
     using TDynamicVector<TDynamicVector<T>>::size;
 
     TDynamicMatrix& operator=(const TDynamicMatrix& m) {
