@@ -126,14 +126,14 @@ public:
             result.pMem[i] += val;
         return result;
     }
-    TDynamicVector operator-(double val)
+    TDynamicVector operator-(T val)
     {
         TDynamicVector<T> result(*this);
         for (size_t i = 0; i < sz; i++)
             result.pMem[i] -= val;
         return result;
     }
-    TDynamicVector operator*(double val)
+    TDynamicVector operator*(T val)
     {
         TDynamicVector<T> result(*this);
         for (size_t i = 0; i < sz; i++)
@@ -221,12 +221,12 @@ public:
         return *this;
     }
 
-    const T& at(int row, int col) const {
+    const T& at(size_t row, size_t col) const {
         if (row >= sz || col >= sz) throw std::out_of_range("Index out of range");
         return pMem[row][col];
     }
 
-    T& at(int row, int col) {
+    T& at(size_t row, size_t col) {
         if (row >= sz || col >= sz) throw std::out_of_range("Index out of range");
         return pMem[row][col];
     }
