@@ -24,6 +24,13 @@ TEST(TDynamicVector, can_create_copied_vector)
   ASSERT_NO_THROW(TDynamicVector<int> v1(v));
 }
 
+TEST(TDynamicVector, can_create_moved_vector) 
+{
+	TDynamicVector<int> v(10);
+
+	ASSERT_NO_THROW(TDynamicVector<int>(std::move(v)));
+}
+
 TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 {
 	TDynamicVector<int> v1(3);
@@ -34,12 +41,30 @@ TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 
 }
 
+TEST(TDynamicVector, moved_vector_is_equal_to_source_one) 
+{
+	TDynamicVector<int> v1(3);
+	v1[2] = 1;
+	TDynamicVector<int> v2(v1);
+	TDynamicVector<int> v3(std::move(v1));
+
+	ASSERT_EQ(v2, v3);
+}
+
 TEST(TDynamicVector, copied_vector_has_its_own_memory)
 {
 	TDynamicVector<int> v1(3);
 	TDynamicVector<int> v2(v1);
 
-	ASSERT_EQ(3, v2.size());
+	ASSERT_NE(&v1[0], &v2[0]);
+}
+
+TEST(TDynamicVector, moved_vector_has_not_its_own_memory)
+{
+	TDynamicVector<int> v1(3);
+	TDynamicVector<int> v2(std::move(v1));
+
+	ASSERT_NE(&v1[0], &v2[0]);
 }
 
 TEST(TDynamicVector, can_get_size)
@@ -89,12 +114,34 @@ TEST(TDynamicVector, can_assign_vectors_of_equal_size)
 	ASSERT_EQ(v2, v1);
 }
 
+TEST(TDynamicVector, can_move_vectors_of_equal_size)
+{
+	TDynamicVector<int> v1(5);
+	v1[0] = 1;
+	TDynamicVector<int> v2(v1);
+	TDynamicVector<int> v3;
+
+	v3 = std::move(v1);
+
+	ASSERT_EQ(v2, v3);
+}
+
 TEST(TDynamicVector, assign_operator_change_vector_size)
 {
 	TDynamicVector<int> v1(5);
 	TDynamicVector<int> v2(10);
 
 	v1 = v2;
+
+	ASSERT_EQ(10, v1.size());
+}
+
+TEST(TDynamicVector, move_operator_change_vector_size)
+{
+	TDynamicVector<int> v1(5);
+	TDynamicVector<int> v2(10);
+
+	v1 = std::move(v2);
 
 	ASSERT_EQ(10, v1.size());
 }
@@ -108,6 +155,18 @@ TEST(TDynamicVector, can_assign_vectors_of_different_size)
 	v2 = v1;
 
 	ASSERT_EQ(v2, v1);
+}
+
+TEST(TDynamicVector, can_move_vectors_of_different_size)
+{
+	TDynamicVector<int> v1(5);
+	v1[0] = 1;
+	TDynamicVector<int> v2(v1);
+	TDynamicVector<int> v3(6);
+
+	v3 = std::move(v1);
+
+	ASSERT_EQ(v2, v3);
 }
 
 TEST(TDynamicVector, compare_equal_vectors_return_true)
