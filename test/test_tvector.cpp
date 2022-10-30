@@ -119,7 +119,7 @@ TEST(TDynamicVector, can_move_vectors_of_equal_size)
 	TDynamicVector<int> v1(5);
 	v1[0] = 1;
 	TDynamicVector<int> v2(v1);
-	TDynamicVector<int> v3;
+	TDynamicVector<int> v3(5);
 
 	v3 = std::move(v1);
 
