@@ -293,7 +293,7 @@ public:
                 istr >> m.pMem[i][j];
         return istr;
     }
-    friend ostream& operator<<(ostream& ostr, const TDynamicMatrix& v)
+    friend ostream& operator<<(ostream& ostr, const TDynamicMatrix& m)
     {
         for (size_t i = 0; i < m.sz; i++) {
             ostr << m.pMem[i];
