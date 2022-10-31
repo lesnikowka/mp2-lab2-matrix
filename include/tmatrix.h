@@ -274,7 +274,7 @@ public:
     }
     TDynamicMatrix operator*(const TDynamicMatrix& m)
     {
-        if (sz != v.sz) throw std::logic_error("Sizes of matrices are not equate");
+        if (sz != m.sz) throw std::logic_error("Sizes of matrices are not equate");
         TDynamicMatrix<T> result;
         for (size_t i = 0; i < sz; i++)
             for (size_t k = 0; k < sz; k++)
@@ -294,8 +294,8 @@ public:
     friend ostream& operator<<(ostream& ostr, const TDynamicMatrix& v)
     {
         for (size_t i = 0; i < v.sz; i++) {
-            ostr << v.pMem[i];
-            if (i != v.sz - 1) ostr << '\n';
+            ostr << m.pMem[i];
+            if (i != m.sz - 1) ostr << '\n';
         }
 
         return ostr;
