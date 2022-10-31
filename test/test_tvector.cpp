@@ -174,14 +174,14 @@ TEST(TDynamicVector, compare_equal_vectors_return_true)
 	TDynamicVector<int> v1(5);
 	TDynamicVector<int> v2(5);
 
-	EXPECT_EQ(true, v1 == v2);
+	EXPECT_TRUE(v1 == v2);
 }
 
 TEST(TDynamicVector, compare_vector_with_itself_return_true)
 {
 	TDynamicVector<int> v1(5);
 
-	EXPECT_EQ(true, v1 == v1);
+	EXPECT_TRUE(v1 == v1);
 }
 
 TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
@@ -189,7 +189,7 @@ TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
 	TDynamicVector<int> v1(5);
 	TDynamicVector<int> v2(10);
 
-	EXPECT_EQ(true, v1 != v2);
+	EXPECT_TRUE(v1 != v2);
 }
 
 TEST(TDynamicVector, can_add_scalar_to_vector)
