@@ -89,7 +89,7 @@ public:
     }
     const T& operator[](size_t ind) const
     {
-        return pMem[int];
+        return pMem[ind];
     }
     // индексация с контролем
     T& at(size_t ind)
