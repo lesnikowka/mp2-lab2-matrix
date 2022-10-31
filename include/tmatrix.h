@@ -242,10 +242,12 @@ public:
     }
     
     // матрично-скалярные операции
-    TDynamicVector<T> operator*(const T& val)
+    TDynamicMatrix<T> operator*(const T& val)
     {
+        TDynamicMatrix<T> result(sz);
         for (size_t i = 0; i < sz; i++)
-            pMem[i] *= val;
+            result.pMem[i] = pMem[i] * val;
+        return result;
     }
     
     // матрично-векторные операции
@@ -284,16 +286,16 @@ public:
     }
     
     // ввод/вывод
-    friend istream& operator>>(istream& istr, TDynamicMatrix& v)
+    friend istream& operator>>(istream& istr, TDynamicMatrix& m)
     {
-        for (size_t i = 0; i < v.sz; i++)
-            for (size_t j = 0; j < v.sz; j++)
-                istr >> v.pMem[i][j];
+        for (size_t i = 0; i < m.sz; i++)
+            for (size_t j = 0; j < m.sz; j++)
+                istr >> m.pMem[i][j];
         return istr;
     }
     friend ostream& operator<<(ostream& ostr, const TDynamicMatrix& v)
     {
-        for (size_t i = 0; i < v.sz; i++) {
+        for (size_t i = 0; i < m.sz; i++) {
             ostr << m.pMem[i];
             if (i != m.sz - 1) ostr << '\n';
         }
